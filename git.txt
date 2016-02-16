@@ -150,3 +150,26 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
 ##PS##
 	git diff --cached	##命令对比暂存区和最近一次提交的不同
 	暂存区就像购物车，没到付款的时候你都不确定购物车里的东西全部都是要的。。
+
+
+----------------------------------------------------------------------------------------------
+管理修改
+----------------------------------------------------------------------------------------------
+$ git diff HEAD -- readme.txt ##命令可以查看工作区和版本库里面最新版本的区别：
+								readme.txt<==查看的文件名.
+								
+git diff：是查看working tree与index file的差别的。
+git diff --cached：是查看index file与commit的差别的。
+git diff HEAD：是查看working tree和commit的差别的。（你一定没有忘记，HEAD代表的是最近的一次commit的信息）
+
+git commit readme.txt -m "..."	##提交到暂存区后直接提交到分支，两步一起完成？？？？？？
+
+##PS##
+	-- 指定文件可以提交未保存到暂存区(unstaged)
+	vi readme.txt
+	git commit readme.txt -m "commit with unstaged modify"
+	vi readme.txt
+	git commit -a -m "commit all file will commit unstaged modify"
+
+	--不使用其他参数不会提交unstaged modify
+	git commit -m "commit without param will not commit unstaged modify"
