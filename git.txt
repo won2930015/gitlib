@@ -22,3 +22,74 @@
 	--global参数，表示你这台机器上所有的Git仓库都会使用这个配置
 	
 个人学习的话，建议直接上ubuntu，apt简单易用，软件更新及时。RHEL的软件更新实在太慢
+
+
+----------------------------------------------------------------------------------------------
+创建版本库
+----------------------------------------------------------------------------------------------
+##建立空目录
+	$ mkdir learngit
+	$ cd learngit
+	$ pwd		##pwd命令用于显示当前目录。
+	/Users/michael/learngit
+##把目录变成Git可以管理的仓库：
+	$ git init
+	Initialized empty Git repository in /Users/michael/learngit/.git/
+	##如果你没有看到.git目录，那是因为这个目录默认是隐藏的，用ls -ah命令就可以看见。
+	
+##把文件添加到暂存区：
+	$ git add readme.txt
+	
+##把文件提交到仓库：
+	$ git commit -m "wrote a readme file"  ##参数"-m"后面输入的是本次提交的说明.
+	[master (root-commit) cb926e7] wrote a readme file
+	1 file changed, 2 insertions(+)
+	create mode 100644 readme.txt
+	
+	
+##小结
+	在总结一下今天学的两点内容：
+	初始化一个Git仓库，使用git init命令。
+	添加文件到Git仓库，分两步：
+	第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+	第二步，使用命令git commit，完成。
+	
+	省略<path>表示.,即当前目录。
+	git add <path>的形式把我们<path>添加到索引库中，<path>可以是文件也可以是目录。
+	git add -u [<path>]: 把<path>中所有tracked文件中被修改过或已删除文件的信息添加到索引库。它不会处理untracted的文件。
+	git add -A: [<path>]表示把<path>中所有tracked文件中被修改过或已删除文件和所有untracted的文件信息添加到索引库。
+	git add --all
+	git add -i [<path>]命令查看<path>中被所有修改过或已删除文件但没有提交的文件，
+		并通过其revert子命令可以查看<path>中所有untracted的文件，同时进入一个子命令系统。
+		比如：
+		git add -i
+           staged     unstaged path
+			1:        +0/-0      nothing branch/t.txt
+			2:        +0/-0      nothing branch/t2.txt
+			3:    unchanged        +1/-0 readme.txt
+
+			Commands 
+			1: [s]tatus     2: [u]pdate     3: [r]evert     4: [a]dd untracked
+			5: [p]atch      6: [d]iff       7: [q]uit       8: [h]elp
+			What now>
+			这里的t.txt和t2.txt表示已经被执行了git add，待提交。即已经添加到索引库中。
+			readme.txt表示已经处于tracked下，它被修改了，但是还没有被执行了git add。即还没添加到索引库中。
+			
+	在错误的目录打了git init命令,把.git目录剪切出/删除即可。
+
+##PS:所有的版本控制系统，其实只能跟踪文本文件的改动，比如TXT文件，网页，所有的程序代码等等.
+	 可以告诉你每次的改动，比如在第5行加了一个单词“Linux”，在第8行删了一个单词“Windows”。
+	 
+	 而图片、视频这些二进制文件，虽然也能由版本控制系统管理，但没法跟踪文件的变化，
+	 只能把二进制文件每次改动串起来，也就是只知道图片从100KB改成了120KB，但到底改了啥，
+	 版本控制系统不知道，也没法知道。
+	 
+	 Microsoft的Word格式是二进制格式，因此，版本控制系统是没法跟踪Word文件的改动的.
+	 如果要真正使用版本控制系统，就要以纯文本方式编写文件。强烈建议使用标准的UTF-8编码，
+	 所有语言使用同一种编码，既没有冲突，又被所有平台所支持。
+	 
+##PS:使用Windows的童鞋要特别注意：
+	 Windows自带的记事本保存UTF-8编码文件时会在文件开头添加了0xefbbbf（十六进制）的字符，
+	 你会遇到很多不可思议的问题比如，网页第一行可能会显示一个“?”，明明正确的程序一编译就报语法错误，等等
+	 建议下载Notepad++代替记事本，记得把Notepad++的默认编码设置为UTF-8 without BOM即可。
+	 https://notepad-plus-plus.org/
