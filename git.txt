@@ -1,0 +1,24 @@
+----------------------------------------------------------------------------------------------
+安装Git
+----------------------------------------------------------------------------------------------
+在Linux上安装Git
+	$ git ##先输入git
+	The program 'git' is currently not installed. You can install it by typing:
+	sudo apt-get install git ##没有安装Linux会友好地告诉你Git没有安装，还会告诉你如何安装Git。
+	
+	##老一点的Debian或Ubuntu Linux，要把命令改为
+	sudo apt-get install git-core
+
+	通过源码安装。先从Git官网下载源码，然后解压，依次输入：
+	./config，make，sudo make install ##这几个命令安装就好了。
+
+在Windows上安装Git
+	https://git-for-windows.github.io/
+	http://git-scm.com/download/win
+
+配置git
+	$ git config --global user.name "Your Name"
+	$ git config --global user.email "email@example.com"
+	--global参数，表示你这台机器上所有的Git仓库都会使用这个配置
+	
+个人学习的话，建议直接上ubuntu，apt简单易用，软件更新及时。RHEL的软件更新实在太慢
