@@ -217,3 +217,26 @@ $ git checkout -- test.txt	##从版本库恢复文件到工作区
 
 $ git rm test.txt					##删除版本库中的文件。
 $ git commit -m "remove test.txt"	##提交删除操作。
+
+
+----------------------------------------------------------------------------------------------
+远程仓库
+----------------------------------------------------------------------------------------------
+
+创建SSH Key。
+##在用户主目录下，看看有没有.ssh目录，里面有没有id_rsa和id_rsa.pub这两个文件，有，直接跳到下一步。
+##id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+
+$ ssh-keygen -t rsa -C "youremail@example.com"	##邮箱地址改为自已的邮箱地址。
+
+##登陆GitHub，在右上角点击菜单选择"settings"，点击"SSH Keys"页面：
+  点"Add SSH Key"按键，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容。
+  点"Add Key"按键
+
+  因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，
+  所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。
+ 
+##验证是否配置成功 
+$ ssh -T git@github.com
+如果配置成功，则会显示：
+Hi username! You’ve successfully authenticated, but GitHub does not provide shell access.
