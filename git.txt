@@ -122,6 +122,7 @@ $ git reset --hard HEAD^^	##恢复到上上个版本
 $ git reset --hard HEAD~100	##恢复到前100个版本
 $ git reset --hard 3628164	##恢复到指写的commit id
 							##commit id==>3628164
+$ git reset HEAD readme.txt	##把暂存区的修改撤销掉（unstage）.工作区文件内容不变。
 
 $ cat readme.txt	##查看readme.txt文件。
 
@@ -194,20 +195,24 @@ $ git reset HEAD readme.txt		##把暂存区的修改撤销掉（unstage）.
 
 场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
 
-场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步。
+	   第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
 
 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
 
 ##PS##
 	1.撤销工作区的修改符合就近原则：
 	工作区 < - 缓冲区 <- 版本库
-	撤销工作区修改，如果缓冲区有该文件，则checkout -- file 会将缓冲区的内容覆盖到工作区，此时工作区和缓冲区文件内容相同，因此工作区是干净的，并没有未add的文件。
-	撤销工作区修改，如果缓冲区没有该文件，则checkout -- file命令会继续向上找，找到版本库中的该文件，此时使用版本库中的文件覆盖工作区，工作区不干净，因为有未提交的文件（从版本库中覆盖修改的文件）。
+	撤销工作区修改，如果缓冲区有该文件，则checkout -- file 会将缓冲区的内容覆盖到工作区，
+	此时工作区和缓冲区文件内容相同，因此工作区是干净的，并没有未add的文件。
+	
+	撤销工作区修改，如果缓冲区没有该文件，则checkout -- file命令会继续向上找，找到版本库中的该文件，
+	此时使用版本库中的文件覆盖工作区，工作区不干净，因为有未提交的文件（从版本库中覆盖修改的文件）。
 
 	2.撤销缓冲区
+	git reset HEAD readme.txt
 	直接丢弃缓冲区中的相应内容，只剩下工作区的版本。缓冲区中内容并没有覆盖到工作区，而是直接清除。
-	git reset HEAD readme.txt	
-	
+		
 ----------------------------------------------------------------------------------------------
 删除文件
 ----------------------------------------------------------------------------------------------
@@ -224,10 +229,10 @@ $ git commit -m "remove test.txt"	##提交删除操作。
 ----------------------------------------------------------------------------------------------
 
 创建SSH Key。
-##在用户主目录下，看看有没有.ssh目录，里面有没有id_rsa和id_rsa.pub这两个文件，有，直接跳到下一步。
+###在<用户主目录>下,看看有没有.ssh目录，里面有没有id_rsa和id_rsa.pub这两个文件，有，直接跳到下一步。
 ##id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
 
-$ ssh-keygen -t rsa -C "youremail@example.com"	##邮箱地址改为自已的邮箱地址。
+$ ssh-keygen -t rsa -C "youremail@example.com"	##youremail@example.com改为自已的邮箱地址。
 
 ##登陆GitHub，在右上角点击菜单选择"settings"，点击"SSH Keys"页面：
   点"Add SSH Key"按键，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容。
@@ -248,9 +253,9 @@ Hi username! You’ve successfully authenticated, but GitHub does not provide sh
 #2#在Repository 填入库仓名-->"Create repository"按钮
 
 $ git remote add origin git@github.com:won2930015/git_test.git	##ssh方式(推介)本地仓库与远程库关联
-##或##
-$ git remote add origin https://github.com/won2930015/git_test.git	##https方式。本地仓库与远程库关联
-$ git push -u origin master		##本地仓库的内容推送到GitHub仓库
+											##OR##
+$ git remote add origin https://github.com/won2930015/git_test.git	##https方式(需帐号密码)。本地仓库与远程库关联
+$ git push -u origin master		##本地仓库内容推送至GitHub仓库。(PS:origin：库仓名，master：分支名称。)
 
 ##以后推送简化为：
 $ git push origin master
@@ -271,6 +276,9 @@ $ git remote rm origin	##删除本地仓库与远程仓库的关联
 ----------------------------------------------------------------------------------------------
 从远程库克隆
 ----------------------------------------------------------------------------------------------
+##1##创建库
 登陆GitHub，创建一个新的仓库，名字叫test
 勾选Initialize this repository with a README，GitHub会为我们创建一个README.md文件。
+
+##2##克隆远程库
 $ git clone git@github.com:won2930015/test.git
