@@ -63,7 +63,7 @@
 		并通过其revert子命令可以查看<path>中所有untracted的文件，同时进入一个子命令系统。
 		比如：
 		git add -i
-           staged     unstaged path
+					 staged      unstaged path
 			1:        +0/-0      nothing branch/t.txt
 			2:        +0/-0      nothing branch/t2.txt
 			3:    unchanged        +1/-0 readme.txt
@@ -116,15 +116,15 @@ $ git log		##查看历史记录
 				##git log --pretty=oneline参数。简略显示。
 $ git reflog	##查看命令的历史记录。
 
-$ git reset --hard			##查看当前HEAD指针指向的版本号,并恢复到该版本号。
+$ git reset --hard			##查看当前HEAD指针指向的版本号,并工作区文件恢复到该版本号。
 $ git reset --hard HEAD^	##恢复到上个版本
 $ git reset --hard HEAD^^	##恢复到上上个版本
 $ git reset --hard HEAD~100	##恢复到前100个版本
+$ git reset --hard 3628164	##恢复到指写的commit id
+							##commit id==>3628164
 
 $ cat readme.txt	##查看readme.txt文件。
 
-$ git reset --hard 3628164	##恢复到指写的commit id
-							##commit id==>3628164
 ##小结##
 现在总结一下：
 
@@ -268,3 +268,9 @@ $ git remote rm origin	##删除本地仓库与远程仓库的关联
 关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
 此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
 
+----------------------------------------------------------------------------------------------
+从远程库克隆
+----------------------------------------------------------------------------------------------
+登陆GitHub，创建一个新的仓库，名字叫test
+勾选Initialize this repository with a README，GitHub会为我们创建一个README.md文件。
+$ git clone git@github.com:won2930015/test.git
