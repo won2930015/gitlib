@@ -328,4 +328,53 @@ Git鼓励大量使用分支：
 
 删除分支：git branch -d <name>
 
+----------------------------------------------------------------------------------------------
+解决冲突
+----------------------------------------------------------------------------------------------
+#1#创建分支feature1##
+$ git checkout -b feature1
 
+##修改readme.txt最后一行，改为：Creating a new branch is quick AND simple.
+
+git add readme.txt
+git commit -m "AND simple"
+
+#2#切换到分支master##
+$ git checkout master
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 1 commit.
+##Git还会自动提示我们当前master分支比远程的master分支要超前1个提交。
+
+##在master分支上把readme.txt文件的最后一行改为：Creating a new branch is quick & simple.
+
+$ git add readme.txt 
+$ git commit -m "& simple"
+
+$ git merge feature1	##合并feature1分支
+Auto-merging readme.txt
+CONFLICT (content): Merge conflict in readme.txt
+Automatic merge failed; fix conflicts and then commit the result.
+果然冲突了！Git告诉我们，readme.txt文件存在冲突，必须手动解决冲突后再提交。
+
+git status		##也可以告诉我们冲突的文件：
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+<<<<<<< HEAD
+Creating a new branch is quick & simple.
+=======
+Creating a new branch is quick AND simple.
+>>>>>>> feature1
+
+Git用<<<<<<<，=======，>>>>>>>标记出不同分支的内容。我们修改如下后保存：
+
+##我们修改后保存：Creating a new branch is quick and simple.
+
+$ git add readme.txt 
+$ git commit -m "conflict fixed"
+
+$ git branch -d feature1		##删除feature1分支。
+
+git log --graph		##查看分支合并图。
