@@ -386,6 +386,16 @@ git log --graph		##查看分支合并图。
 $ git merge --no-ff -m "merge with no-ff" dev  ##dev分支名，--no-ff参数，表示禁用Fast forward模式
 											   ##因为本次合并要创建一个新的commit，所以加上-m参数，
 											     把commit描述写进去。合并后，我们用git log --graph看看分支
+												 
+##PS##
+--no-ff参数作用：为了便于问题定位，区分两个分支的 commit 信息，使得版本演进过程更清晰，
+				 在出现问题之后可定位错误点、退回之前的修改版本。
+				 
+###-ff和--no-ff的结果都是一样的,都会合并,其最大区别在于,-ff会"默默"地合并,其仅仅是将指针移动到分支的最新处
+ (当然删除分支并不会对master产生任何影响),而--no-ff则是重新建立了一个commit,然后将合并当做一个comiit来处理,
+  自然就产生了合并的信息.所以,可想而知,如果你的master很重要,某一次合并后出现问题,而你又是使用-ff,
+  这里没有任何记录可以让你回退版本的!(回退只有靠commit id).
+
 ##分支策略##
 
 在实际开发中，我们应该按照几个基本原则进行分支管理：
@@ -398,3 +408,21 @@ $ git merge --no-ff -m "merge with no-ff" dev  ##dev分支名，--no-ff参数，
 ##小结##
 ##合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，
   而fast forward合并就看不出来曾经做过合并。
+  
+##PS##
+两个问题想请教一下廖总
+
+① 假如要参加一个github上的开源项目，先从github上clone到本地rep，然后创建dev分支，完成代码以后merge带=到本地的master，
+   这个时候如果push origin，是否接受修改是不是由github上的项目库的作者决定？
+
+② 关于多人分工参与一个项目。在master不变的情况下，创建一个dev分支，大家都在dev上工作，具体是怎样操作的？
+   是不是每个人都会先创建自己的本地仓库，内容是直接clone的远程dev，那如果几个人参与的是同一段代码，
+   如果push到远端进行merge？
+
+		1 - 如果你不是项目组的成员，github不会让你push，所以必须先在github clone一个你自己的repo
+
+		2 - 如果决定都在dev分支开发，得有一个人先在本地创建dev，push到github，其他人从github pull下来就有dev分支了
+            如果merge有冲突，你是push不上去的，必须先pull下来，解决冲突，才能push，所以不存在同时push的冲突问题
+			
+① GitHub上能如何能看到类似的分支历史流程图？
+		1 - 进入项目，点击右侧的Graphs，选择Network标签。
