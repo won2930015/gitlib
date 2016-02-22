@@ -426,3 +426,30 @@ $ git merge --no-ff -m "merge with no-ff" dev  ##dev分支名，--no-ff参数，
 			
 ① GitHub上能如何能看到类似的分支历史流程图？
 		1 - 进入项目，点击右侧的Graphs，选择Network标签。
+		
+		
+----------------------------------------------------------------------------------------------
+Bug分支
+----------------------------------------------------------------------------------------------
+Git提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作
+$ git stash			##暂存工作区
+
+$ git stash list	##查看存放区(stash)
+
+$ git stash apply	##恢复工作区，恢复后，stash内容并不删除。
+$ git stash drop	##删除stash内容。
+
+$ git stash pop		##恢复工作区，同时把stash内容删除。
+
+$ git stash apply stash@{0}	##恢复到指定的stash。
+
+##小结##
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。
+
+##PS##
+问：现在假如我在正在写dev然后突然说要改bug,然后我在master上改好了bug提交了。但是这时候dev分支上的进度已经比
+master上多了很多东西，我该怎么把在Master分支上修复的bug同步到dev分支，又不破坏dev分支上新写的代码呢？
+
+答：1.git checkout dev	##切换到dev分支
+	2.git merge master	##合并master分支。
