@@ -697,3 +697,15 @@ $ git clone git@github.com:michaelliao/bootstrap.git
 自己拥有Fork后的仓库的读写权限；
 
 可以推送pull request给官方仓库来贡献代码。
+
+----------------------------------------------------------------------------------------------
+自定义Git
+----------------------------------------------------------------------------------------------
+
+$ git config --global color.ui true		##配置颜色
+
+##PS##
+问：设置git窗口字体。
+答：在gitbash window 右键点击,选择options->text 试试.
+
+$ git config --global --help	##查看帮助。
