@@ -652,3 +652,48 @@ git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
 命令git tag可以查看所有标签。
 
 http://airk000.github.io/git/2013/09/30/git-tag-with-gpg-key
+
+----------------------------------------------------------------------------------------------
+操作标签
+----------------------------------------------------------------------------------------------
+$ git tag -d v0.1		##删除标签
+
+$ git push <库仓名> <标签名>
+$ git push origin v1.0	##推送标签到远程
+
+$ git push origin --tags		##一次性推送全部尚未推送到远程的本地标签
+
+##删除远程标签##
+$ git tag -d v0.9		##先删除本地标签
+$ git push origin :refs/tags/v0.9		##删除远程标签(反映不能使用)
+$ git push origin --delete tag <tagname>	##删除远程标签
+$ git push origin :v0.9 		##origin和冒号之间有空格，相当于push一个空的tag到远程.(即册除)
+
+##小结##
+命令git push origin <tagname>可以推送一个本地标签；
+
+命令git push origin --tags可以推送全部未推送过的本地标签；
+
+命令git tag -d <tagname>可以删除一个本地标签；
+
+命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+
+
+----------------------------------------------------------------------------------------------
+使用GitHub
+----------------------------------------------------------------------------------------------
+点“Fork”就在自己的账号下克隆了一个bootstrap仓库，然后，从自己的账号下clone：
+$ git clone git@github.com:michaelliao/bootstrap.git
+
+如果你想修复bootstrap的一个bug，或者新增一个功能，立刻就可以开始干活，干完后，往自己的仓库推送。
+
+如果你希望bootstrap的官方库能接受你的修改，你就可以在GitHub上发起一个pull request。
+当然，对方是否接受你的pull request就不一定了。
+
+###小结###
+
+在GitHub上，可以任意Fork开源仓库；
+
+自己拥有Fork后的仓库的读写权限；
+
+可以推送pull request给官方仓库来贡献代码。
