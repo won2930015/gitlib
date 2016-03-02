@@ -766,3 +766,34 @@ $ git config --global --unset alias.st
 
 2 查看alias list(别名列表)
 $ git config --get-regexp alias
+
+----------------------------------------------------------------------------------------------
+搭建Git服务器
+----------------------------------------------------------------------------------------------
+
+
+##小结##
+搭建Git服务器非常简单，通常10分钟即可完成；
+##方便管理公钥，用Gitosis；https://github.com/res0nat0r/gitosis
+  参考：http://www.tuicool.com/articles/fqUvQvr
+  
+要像SVN那样变态地控制权限，用Gitolite；https://github.com/sitaramc/gitolite
+
+问：廖老师你好，我配置了git环境，创建了一个用户也叫 git，但是我的 /home/git/ 目录下没有 .ssh 文件夹，
+	于是我手动创建了一个，再创建了 authorized_keys 文件，把我电脑的公钥放了进去，但是每次执行git命令
+	都要求输入密码，也就是说 SSH 密钥的方式没生效，请问应该怎么解决？非常感谢您的帮助！
+答：ssh跟authorized_keys 都需要设置权限(需要再git用户下设置，非root)
+	另外etc/ssh/sshd_config里面要修改几个参数
+	StrictModes no
+	RSAAuthentication yes
+	PubkeyAuthentication yes
+	AuthorizedKeysFile      .ssh/authorized_keys
+	（均需要去掉前面的#，使其生效）	
+	
+----------------------------------------------------------------------------------------------
+期末总结
+----------------------------------------------------------------------------------------------	
+
+##国外网友制作的Git Cheat Sheet，建议打印出来备用：http://pan.baidu.com/s/1jGxjQL4#path=%252Fgit
+								       	   中文版：https://www.git-tower.com/blog/git-cheat-sheet-cn
+##Git的官方网站：http://git-scm.com
