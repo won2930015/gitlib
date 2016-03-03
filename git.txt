@@ -7,7 +7,7 @@
 	sudo apt-get install git ##没有安装Linux会友好地告诉你Git没有安装，还会告诉你如何安装Git。
 	
 	##老一点的Debian或Ubuntu Linux，要把命令改为
-	sudo apt-get install git-core
+	$ sudo apt-get install git-core
 
 	通过源码安装。先从Git官网下载源码，然后解压，依次输入：
 	./config，make，sudo make install ##这几个命令安装就好了。
@@ -120,7 +120,7 @@ $ git reset --hard			##查看当前HEAD指针指向的版本号,并工作区文�
 $ git reset --hard HEAD^	##恢复到上个版本
 $ git reset --hard HEAD^^	##恢复到上上个版本
 $ git reset --hard HEAD~100	##恢复到前100个版本
-$ git reset --hard 3628164	##恢复到指写的commit id
+$ git reset --hard 3628164	##恢复到指定的commit id ,commit id 用git log,git reflog查看。
 							##commit id==>3628164
 $ git reset HEAD readme.txt	##把暂存区的修改撤销掉（unstage）.工作区文件内容不变。
 
@@ -145,11 +145,11 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
 							  自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
 
 前面讲了我们把文件往Git版本库里添加的时候，是分两步执行的：
-	第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
-	第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+	第一步是用git add把文件添加进去，实际上就是把"文件修改"添加到暂存区(stage/index)；
+	第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到(本地版本库)的当前分支。
 	
 ##PS##
-	git diff --cached	##命令对比暂存区和最近一次提交的不同
+	git diff --cached	##命令对比暂存区和最近一次提交的不同(暂存区与版本库比较)。
 	暂存区就像购物车，没到付款的时候你都不确定购物车里的东西全部都是要的。。
 
 
@@ -159,7 +159,7 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
 $ git diff HEAD -- readme.txt ##命令可以查看工作区和版本库里面最新版本的区别：
 								readme.txt<==查看的文件名.
 								
-git diff：是查看working tree与index file的差别的。
+git diff：是查看working tree(工作区)与index file(暂存区)的差别的。
 git diff --cached：是查看index file与commit的差别的。
 git diff HEAD：是查看working tree和commit的差别的。（你一定没有忘记，HEAD代表的是最近的一次commit的信息）
 
